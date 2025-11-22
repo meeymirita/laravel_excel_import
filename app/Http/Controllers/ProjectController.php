@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Project\ImportStoreRequest;
 use Illuminate\Http\Request;
 
 class ProjectController extends Controller
@@ -18,5 +19,10 @@ class ProjectController extends Controller
         return inertia('Project/Import', [
 
         ]);
+    }
+
+    public function importStore(ImportStoreRequest $request)
+    {
+        $data = $request->validated();
     }
 }

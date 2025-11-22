@@ -1,5 +1,5 @@
 <template>
-    <div class="w-96 mx-auto">
+    <div class="container mx-auto">
         Index t
     </div>
 </template>
