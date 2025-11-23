@@ -8,4 +8,12 @@ class FailedRow extends Model
 {
     protected $guarded = [];
     protected $table = 'failed_rows';
+
+
+    public static function insertFailedRows($items)
+    {
+        foreach ($items as $item) {
+            self::create($item);
+        }
+    }
 }
