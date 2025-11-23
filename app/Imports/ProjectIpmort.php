@@ -19,6 +19,17 @@ use PhpOffice\PhpSpreadsheet\Shared\Date;
 class ProjectIpmort implements
     ToCollection, WithValidation, SkipsOnFailure, WithStartRow
 {
+    private $task;
+
+    /**
+     * @param $task
+     */
+    public function __construct($task)
+    {
+        $this->task = $task;
+    }
+
+
     /**
      * @param Collection $collection
      */
@@ -80,7 +91,7 @@ class ProjectIpmort implements
         return [
             '0' => 'required|string',
             '1' => 'required|string',
-            '2' => 'required|integer',
+            '2' => 'required|string',
             '13' => 'required|integer',
             '7' => 'nullable|integer',
 
@@ -113,7 +124,7 @@ class ProjectIpmort implements
                 ];
             }
         }
-        if (count($map) > 0) FailedRow::insertFailedRows($map);
+        if (count($map) > 0) FailedRow::insertFailedRows($map, $this->task);
     }
     public function customValidationMessages()
     {
