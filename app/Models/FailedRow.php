@@ -13,7 +13,7 @@ class FailedRow extends Model
     public static function insertFailedRows($items, $task)
     {
         foreach ($items as $item) {
-            self::create($item);
+            FailedRow::create($item);
         }
 
         $task->update(['status' => Task::STATUS_ERROR]);

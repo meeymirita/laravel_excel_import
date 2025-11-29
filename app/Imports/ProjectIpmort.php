@@ -91,7 +91,7 @@ class ProjectIpmort implements
         return [
             '0' => 'required|string',
             '1' => 'required|string',
-            '2' => 'required|string',
+            '2' => 'required|integer', // дата создания мозги все вынесла integer  / string fail
             '13' => 'required|integer',
             '7' => 'nullable|integer',
 
@@ -120,11 +120,11 @@ class ProjectIpmort implements
                     'key' => $failure->attribute(),
                     'row' => $failure->row(),
                     'message' => $error,
-                    'task_id' => 1
+                    'task_id' => $this->task->id
                 ];
             }
         }
-        if (count($map) > 0) FailedRow::insertFailedRows($map, $this->task);
+        if (count($map) > 0) FailedRow::insert($map, $this->task);
     }
     public function customValidationMessages()
     {

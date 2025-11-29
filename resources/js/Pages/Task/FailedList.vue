@@ -1,7 +1,9 @@
 <template>
     <div class="container mx-auto">
-        <p>статусы не корректные</p>
-        <div v-if="tasks"
+        <div>
+            <Link class="test-sm" :href="route('task.index')">Back</Link>
+        </div>
+        <div v-if="failedRows"
              class="not-prose overflow-auto rounded-lg bg-white outline outline-white/5 dark:bg-gray-950/50">
             <div class="my-8 overflow-hidden">
                 <table class="w-full table-auto border-collapse text-sm">
@@ -11,55 +13,49 @@
                             id
                         </th>
                         <th :class="table.th_header">
-                            user_id
+                            key
                         </th>
                         <th :class="table.th_header">
-                            file_id
+                            Row
                         </th>
                         <th :class="table.th_header">
-                            status
+                            message
                         </th>
                         <th :class="table.th_header">
-                            created_at
+                            Created_at
                         </th>
-                        <th :class="table.th_header">
-                            failed rows
-                        </th>
+
                     </tr>
                     </thead>
                     <tbody class="bg-white dark:bg-gray-800">
-                    <tr v-for="task in tasks.data" :key="task.id">
+                    <tr v-for="failed in failedRows.data" :key="failed.id">
                         <td class="border-b border-gray-100 p-4 pl-8 text-gray-500 dark:border-gray-700 dark:text-gray-400">
-                            {{ task.id }}
-                        </td>
-                        <td class="border-b border-gray-100 p-4 pl-8 text-gray-500 dark:border-gray-700 dark:text-gray-400">
-                            {{ task.user.name }}
+                            {{ failed.id }}
                         </td>
                         <td class="border-b border-gray-100 p-4 text-gray-500 dark:border-gray-700 dark:text-gray-400">
-                            {{ task.file.path }}
+                            {{ failed.key }}
                         </td>
                         <td class="border-b border-gray-100 p-4 pr-8 text-gray-500 dark:border-gray-700 dark:text-gray-400">
-                            {{ task.status }}
+                            {{ failed.row }}
                         </td>
                         <td class="border-b border-gray-100 p-4 pr-8 text-gray-500 dark:border-gray-700 dark:text-gray-400">
-                            {{ task.created_at }}
+                            {{ failed.message }}
                         </td>
                         <td class="border-b border-gray-100 p-4 pr-8 text-gray-500 dark:border-gray-700 dark:text-gray-400">
-                            <Link v-if="task.failed_rows_count > 0" class="text-sky-500" :href="route('task.failed_list', task.id)">Failder rows</Link>
+                            {{ failed.created_at }}
                         </td>
                     </tr>
                     </tbody>
                 </table>
             </div>
         </div>
-        <div v-if="tasks && tasks.meta">
-            <Pagination :meta="tasks.meta"/>
+        <div v-if="failedRows && failedRows.meta">
+            <Pagination :meta="failedRows.meta"/>
         </div>
     </div>
 </template>
 <script>
 import {Link} from "@inertiajs/vue3";
-import MainLayout from "@/Layouts/MainLayout.vue";
 import Pagination from "@/Components/Pagination.vue";
 export default {
     name: "Index",
@@ -69,7 +65,7 @@ export default {
         Pagination,
     },
     props: [
-        'tasks'
+        'failedRows'
     ],
     data() {
         return {
@@ -85,6 +81,7 @@ export default {
 
 }
 
+import MainLayout from "@/Layouts/MainLayout.vue";
 </script>
 <style scoped>
 
